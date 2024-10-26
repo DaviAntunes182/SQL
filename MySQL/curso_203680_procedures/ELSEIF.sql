@@ -1,3 +1,4 @@
+#IF ELSE IF ELSE
 USE `insight_places`;
 DROP procedure IF EXISTS `insight_places`.`nova_reserva_08`;
 DELIMITER $$
