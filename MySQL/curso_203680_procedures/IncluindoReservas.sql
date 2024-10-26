@@ -1,3 +1,4 @@
+#INCLUINDO VÁRIAS RESERVAS DE UMA VEZ
 USE `insight_places`;
 DROP procedure IF EXISTS `insight_places`.`novas_reservas_01`;
 
