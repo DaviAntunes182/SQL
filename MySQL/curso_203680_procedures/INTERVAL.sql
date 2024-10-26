@@ -1,4 +1,4 @@
-#INTERVAL - Conta dias corridos
+#INTERVAL - Conta dias corridos 
 USE `insight_places`;
 DROP procedure IF EXISTS `insight_places`.`nova_reserva_12`;
 DELIMITER $$
