@@ -1,4 +1,5 @@
 #Gravando dados String em uma tabela temporária Tabela Temporarária
+
 USE `insight_places`;
 DROP procedure IF EXISTS `insight_places`.`inclui_nomes_lista`;
 
