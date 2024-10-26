@@ -1,4 +1,4 @@
-#CASE END CASE
+#CASE WHEN END CASE
 USE `insight_places`;
 DROP procedure IF EXISTS `insight_places`.`nova_reserva_10`;
 DELIMITER $$
