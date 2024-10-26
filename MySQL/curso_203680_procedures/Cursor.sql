@@ -1,5 +1,4 @@
 #CURSOR
-
 USE `insight_places`;
 DROP procedure IF EXISTS `looping_cursor_01`;
 
