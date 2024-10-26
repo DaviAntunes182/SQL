@@ -1,3 +1,4 @@
+#
 USE `insight_places`;
 DROP procedure IF EXISTS `insight_places`.`novo_aluguel_01`;
 DELIMITER $$
