@@ -33,3 +33,20 @@ SELECT MONTHNAME(CURDATE());
 
 #ANO
 SELECT YEAR(CURDATE());
+
+# Calculando idade na raça
+SET @vData1 = CURDATE();
+SET @vData2 = '2000-11-14';
+SET @vDif = (CASE 
+		WHEN MONTH(@vData1) > MONTH(@vData2) THEN 0
+        WHEN MONTH(@vData1) < MONTH(@vData2) THEN 1
+        ELSE
+			CASE 
+				WHEN DAY(@vData1) > DAY(@vData2) THEN 0
+				ELSE 1
+			END
+	END); 
+SELECT (YEAR(@vData1) - YEAR(@vData2) - @vDif) AS Idade;
+
+#CALCULAR IDADE
+SELECT TIMESTAMPDIFF(YEAR, @vData2, @vData1);
