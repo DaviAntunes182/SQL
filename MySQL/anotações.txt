@@ -1,0 +1,5 @@
+#Procurar saber em MySQL 
+    #Window functions
+    #Regex
+    #Constraints
+    #Pivot Table
