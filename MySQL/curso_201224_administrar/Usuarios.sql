@@ -1,0 +1,70 @@
+/* 				Gerenciamento de Usuários
+	Na aba administration ao lado de Schemas -> Users and privileges
+    
+    CRIANDO UM USUÁRIO ADMIN
+    
+    ADD ACOUNT -> PREENCHER DADOS -> HOST: LOCALHOST ->
+    ABA ACCOUNT LIMIT -> 0: ILIMITADO
+    ABA ADMINSTRATIVE ROLES -> DBA: PODE TUDO
+    
+    POR COMANDOS
+*/
+#CRIA UM USUÁRIO DBA
+CREATE USER 'Admin02'@'localhost' IDENTIFIED BY 'admin02';
+#DÁ OS PRIVILÉGIOS
+GRANT ALL PRIVILEGES ON *.* TO 'Admin02'@'localhost' WITH GRANT OPTION;
+
+
+#CRIANDO USUARIO COMUM
+CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'usuario123';
+#DANDO PRIVILÉGIOS ESPECÍFICOS
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE ON *.* TO 'usuario'@'localhost';
+#Removendo Usuário
+DROP USER 'usuario'@'localhost';
+
+-- CRIANDO USUÁRIO PARA SOMENTE LEITURA
+CREATE USER 'leitura'@'localhost' IDENTIFIED BY 'leitura123';
+GRANT SELECT, EXECUTE ON *.* TO 'usuario'@'localhost';
+
+-- CRIANDO USUÁRIO PARA BACKUP
+CREATE USER 'backup'@'localhost' IDENTIFIED BY 'backup123';
+GRANT SELECT, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'backup'@'localhost';
+
+-- ALÉM DO LOCALHOST
+# LIMIT TO HOST MATCHING: % -> Acesso de qualquer máquina
+CREATE USER 'usuario'@'%' IDENTIFIED BY 'usuario123';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE ON *.* TO 'usuario'@'localhost';
+
+/* 		ENDEREÇOS DE IP
+192.168.1.% -> 192.168.1.0 ATÉ 192.168.1.255
+192.168.1.1__ -> 192.168.1.100 ATÉ 192.168.199
+
+CLIENT__.MYCOMPANY.COM -> CLIENTXY.MYCOMPANY.COM 
+*/
+
+/*		LIMITANDO O ACESSO AOS BANCOS DE DADOS
+	SCHEMAS PRIVILAGES -> ADD ENTRY -> SELECTED SCHEMA -> SCHEMA
+    
+    POR LINHA DE COMANDO
+
+CREATE USER 'usuario'@'%' IDENTIFIED BY 'usuario123';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE 
+ON banco_de_dados.* TO 'usuario'@'localhost';
+
+*/
+CREATE USER 'usuario'@'%' IDENTIFIED BY 'usuario123';
+
+#Podemos especificar tabelas
+GRANT SELECT
+ON sucos_vendas.clientes TO 'usuario'@'localhost';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE 
+ON sucos_vendas.produtos TO 'usuario'@'localhost';
+
+# REVOGANDO PRIVILÉGIOS
+SHOW GRANTS FOR 'usuario'@'localhost';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'usuario'@'localhost';
+
+#NOVOS PRIVILÉGIOS
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE 
+ON sucos_vendas.* TO 'usuario'@'localhost';

@@ -1,0 +1,39 @@
+            Aula 02 
+Tuning de Hardware
+
+    Existem 4 maneiras de configurar o ambiente MySQL para fazer tuning
+    1 - Esquema e índices
+    2 - Tuning através de variáveis internas do MySQL - MySQLT
+    3/4 - Através do hardware ou sistema operacionais(64bt)
+
+    Variáveis de Ambiente, o comando SHOW STATUS mostra a situação das variáveis
+        Sobre: dev.mysql.com/doc/refman/8.0/en/server-system-variables.html
+        Temos dois tipos: Global e Session
+        my.ini ou my.cnf - Arquivo onde estão as variáveis
+        Ex: tmp_table_size = nKB / nM / nG ...
+            Tamanho máximo em memória das tabelas temporárias
+
+Mecanismos de Armazenamento: Aplicados na tabela
+    MyISAM -> Bom para leitura, Ruim para gravações.
+              Indexação
+              Indexação Hash e BTREE
+              Não transacional. Bloqueio a nível de tabela
+              Variáveis: key_buffer_size, concurrent_insert,
+              delay_key_write, max_write_lock_count,
+              preload_buffer_size, myisamchk, myisampack
+              myisam_ftdump               
+    
+    InnoDB ->   Suporte transacional, Bloqueio nível de linha
+                Indexação BTREE
+                Cache de buffer configurável
+                Backup on-line sem Bloqueio
+                Innodb_data_file_path; Innodb_data_home_dir;
+                Innodb_file_per_table; innodb_buffer_pool_size;
+                innodb_flush_log_at_trx_commit;
+                innodb_log_file_size;
+    
+    Memory ->   Nenhum suporte a chave estrangeira
+                Indexação Hash e BTREE
+                Muito rápido para ler e gravar
+                A informação não fica armazenada no disco
+                Bloqueio no nível da tabela
