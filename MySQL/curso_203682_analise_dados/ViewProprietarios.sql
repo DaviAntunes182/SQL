@@ -1,0 +1,26 @@
+CREATE VIEW VW_METRICAS_PROPRIETARIO AS
+SELECT
+	P.nome AS PROPRIETARIO,
+    COUNT(DISTINCT H.hospedagem_id) AS QTD_PROPRIEDADES,
+	MIN(PRIMEIRA_DATA) AS PRIMEIRA_DATA,
+	SUM(TOTAL_DIAS) AS TOTAL_DIAS,
+	SUM(DIAS_OCUPADOS) AS DIAS_OCUPADOS,
+	ROUND(SUM(DIAS_OCUPADOS)/ SUM(TOTAL_DIAS) * 100, 2) AS TAXA_OCUPACAO
+FROM(
+	SELECT
+		hospedagem_id,
+		MIN(data_inicio) AS PRIMEIRA_DATA,
+		SUM(DATEDIFF(data_fim, data_inicio)) AS DIAS_OCUPADOS,
+		DATEDIFF(MAX(data_fim), MIN(data_inicio)) AS TOTAL_DIAS
+	FROM
+		alugueis
+	GROUP BY
+		hospedagem_id) A
+INNER JOIN hospedagens H
+ON A.hospedagem_id = H.hospedagem_id
+INNER JOIN proprietarios P
+ON H.proprietario_id = P.proprietario_id
+GROUP BY P.proprietario_id
+ORDER BY TOTAL_DIAS DESC;
+
+SELECT * FROM VW_METRICAS_PROPRIETARIO;
